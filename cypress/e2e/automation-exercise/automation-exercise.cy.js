@@ -38,7 +38,7 @@ describe('Automation Exercise', () => {
 
     describe('User Login', () => {
 
-        it.only('TC2 -  Login User with correct email and password', function() {
+        it('TC2 -  Login User with correct email and password', function() {
             const user = this.user;
 
             cy.registerUser(user);
