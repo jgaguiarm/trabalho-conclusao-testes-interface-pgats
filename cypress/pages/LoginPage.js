@@ -28,6 +28,10 @@ class LoginPage{
     validateNewUserSignupIsVisible(){
         cy.get('.signup-form').contains('New User Signup!').should('be.visible');
     }
+
+    verifyLoginErrorMessageIsVisible(){
+        cy.contains('Your email or password is incorrect!').should('be.visible');
+    }
 }
 
 export default new LoginPage();

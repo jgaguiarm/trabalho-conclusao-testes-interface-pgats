@@ -55,6 +55,22 @@ describe('Automation Exercise', () => {
 
             cy.deleteUser();
         })
+
+        it('TC3 -  Login User with incorrect email and password', function() {
+            const invalidEmail = 'test@example.com';
+            const invalidPassword = 'invalidpassword';
+
+            HomePage.visitHomePage();
+            HomePage.clickSignupLoginButton();
+
+            LoginPage.validateLoginIsVisible();
+
+            LoginPage.fillLoginEmailAndPassword(invalidEmail, invalidPassword);
+            LoginPage.clickLoginSubmitButton();
+
+            LoginPage.verifyLoginErrorMessageIsVisible();
+
+        })
     })
 
 })
