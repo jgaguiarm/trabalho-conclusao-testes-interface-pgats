@@ -8,6 +8,11 @@ class LoginPage{
         cy.get('[data-qa="signup-email"]').type(email)
     }
 
+    fillLoginEmailAndPassword(email, password){
+        cy.get('[data-qa="login-email"]').type(email)
+        cy.get('[data-qa="login-password"]').type(password)
+    }
+
      clickLoginSubmitButton(){
         cy.get('[data-qa="login-button"]').click()
     }

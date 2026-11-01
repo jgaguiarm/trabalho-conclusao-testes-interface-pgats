@@ -4,7 +4,6 @@ import SignupPage from '../../pages/SignupPage.js';
 
 describe('Automation Exercise', () => {
     beforeEach(() => {
-        cy.visit('/');
         cy.fixture('users.json').as('user');
     });
 
@@ -34,6 +33,22 @@ describe('Automation Exercise', () => {
            HomePage.verifyAccountDeletedIsVisible();
            HomePage.clickContinueButton();
 
+        })
+    })
+
+    describe('User Login', () => {
+
+        it('TC2 -  Login User with correct email and password', function() {
+            const user = this.user;
+
+            cy.registerUser(user);
+
+            LoginPage.visitLoginPage();
+            LoginPage.fillLoginEmailAndPassword(user.email, user.password);
+            LoginPage.clickLoginSubmitButton();
+
+            HomePage.veryfyLoggedInAsUserIsVisible(user.name);
+            cy.deleteUser();
         })
     })
 

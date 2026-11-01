@@ -23,3 +23,36 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+import HomePage from '../pages/Homepage.js';
+import LoginPage from '../pages/LoginPage.js';
+import SignupPage from '../pages/SignupPage.js';
+
+Cypress.Commands.add('registerUser', (user) => {
+    HomePage.visitHomePage();
+    HomePage.clickSignupLoginButton();
+
+    LoginPage.validateNewUserSignupIsVisible();
+    LoginPage.fillSignupEmailAndPassword(user.name, user.email);
+    LoginPage.clickSignupButton();
+    
+    SignupPage.fillSignupForm({
+        title: user.title,
+        password: user.password,
+        firstName: user.firstName,
+        lastName: user.lastName,
+    });
+    SignupPage.clickCreateAccountButton();
+    SignupPage.verifyAccountCreatedIsVisible();
+    SignupPage.clickContinueButton();
+
+    HomePage.veryfyLoggedInAsUserIsVisible(user.name);
+
+    HomePage.logoutUser();
+});
+
+Cypress.Commands.add('deleteUser', () => {
+    HomePage.deleteAccount();
+    HomePage.verifyAccountDeletedIsVisible();
+    HomePage.clickContinueButton();
+});

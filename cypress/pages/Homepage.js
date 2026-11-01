@@ -19,11 +19,7 @@ class HomePage {
     }
 
     deleteAccount() {
-        cy.get('a[href="/delete_account"]').click();
-    }
-
-    clickDeleteAccountButton() {
-        cy.get('[data-qa="delete-account"]').click();
+        cy.get('a[href="/delete_account"]').should('be.visible').click();
     }
 
     verifyAccountDeletedIsVisible() {
@@ -31,7 +27,11 @@ class HomePage {
     }
 
     clickContinueButton() {
-        cy.get('[data-qa="continue-button"]').click();
+        cy.get('[data-qa="continue-button"]').should('be.visible').click();
+    }
+
+    logoutUser() {
+        cy.get('a[href="/logout"]').click();
     }
 }
 
