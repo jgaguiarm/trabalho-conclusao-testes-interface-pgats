@@ -38,16 +38,21 @@ describe('Automation Exercise', () => {
 
     describe('User Login', () => {
 
-        it('TC2 -  Login User with correct email and password', function() {
+        it.only('TC2 -  Login User with correct email and password', function() {
             const user = this.user;
 
             cy.registerUser(user);
 
-            LoginPage.visitLoginPage();
+            HomePage.visitHomePage();
+            HomePage.clickSignupLoginButton();
+
+            LoginPage.validateLoginIsVisible();
+
             LoginPage.fillLoginEmailAndPassword(user.email, user.password);
             LoginPage.clickLoginSubmitButton();
 
             HomePage.veryfyLoggedInAsUserIsVisible(user.name);
+
             cy.deleteUser();
         })
     })
