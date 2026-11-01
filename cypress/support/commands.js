@@ -51,6 +51,18 @@ Cypress.Commands.add('registerUser', (user) => {
     HomePage.logoutUser();
 });
 
+Cypress.Commands.add('loginSuccess', (user) => {
+    LoginPage.visitLoginPage();
+
+    LoginPage.validateLoginIsVisible();
+
+    LoginPage.fillLoginEmailAndPassword(user.email, user.password);
+    LoginPage.clickLoginSubmitButton();
+
+    HomePage.veryfyLoggedInAsUserIsVisible(user.name);
+});
+
+
 Cypress.Commands.add('deleteUser', () => {
     HomePage.deleteAccount();
     HomePage.verifyAccountDeletedIsVisible();

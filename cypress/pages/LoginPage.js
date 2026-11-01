@@ -32,6 +32,10 @@ class LoginPage{
     verifyLoginErrorMessageIsVisible(){
         cy.contains('Your email or password is incorrect!').should('be.visible');
     }
+
+    validateRedirectToLoginPage(){
+        cy.url().should('include', '/login');
+    }
 }
 
 export default new LoginPage();
