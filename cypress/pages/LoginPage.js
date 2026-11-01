@@ -33,6 +33,10 @@ class LoginPage{
         cy.contains('Your email or password is incorrect!').should('be.visible');
     }
 
+    verifyExistingEmailErrorMessageIsVisible(){
+        cy.contains('Email Address already exist!').should('be.visible');
+    }
+
     validateRedirectToLoginPage(){
         cy.url().should('include', '/login');
     }

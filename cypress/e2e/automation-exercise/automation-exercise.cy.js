@@ -107,4 +107,22 @@ describe('Automation Exercise', () => {
         })
     })
 
+    describe('User Registration with Existing Email', () => {
+        it('TC5 - Register User with Existing Email', function() {
+            const user = {
+                ...this.user,
+                email: `tc5.${Date.now()}@example.com`,
+            };
+
+            cy.registerUser(user);
+
+            HomePage.visitHomePage();
+            HomePage.clickSignupLoginButton();
+
+            LoginPage.validateNewUserSignupIsVisible();
+            LoginPage.fillSignupEmailAndPassword(user.name, user.email);
+            LoginPage.clickSignupButton();
+            LoginPage.verifyExistingEmailErrorMessageIsVisible();
+        })
+    })
 })
