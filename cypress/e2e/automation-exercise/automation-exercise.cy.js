@@ -1,6 +1,7 @@
 import LoginPage from '../../pages/LoginPage.js';
 import HomePage from '../../pages/Homepage.js';
 import SignupPage from '../../pages/SignupPage.js';
+import ProductsPage from '../../pages/ProductsPage.js';
 
 describe('Automation Exercise', () => {
     beforeEach(() => {
@@ -123,6 +124,33 @@ describe('Automation Exercise', () => {
             LoginPage.fillSignupEmailAndPassword(user.name, user.email);
             LoginPage.clickSignupButton();
             LoginPage.verifyExistingEmailErrorMessageIsVisible();
+        })
+    })
+
+    describe('Products)', () => {
+        it('TC8 - Verify All Products and product detail page', function() {
+            HomePage.visitHomePage();
+            HomePage.validateHomePage
+
+            ProductsPage.clickProductsButton();
+            ProductsPage.validateProductPage();
+            ProductsPage.validateAllProductsAreVisible();
+            ProductsPage.getFirstProductData().then((product) => {
+
+                expect(product.name).to.not.be.empty;
+                expect(product.url).to.match(/^\/product_details\/\d+$/);
+
+                ProductsPage.clickViewProductButton();
+
+                ProductsPage.validateUserIsRedirectedToProductDetailPage(
+                    product.url
+                );
+
+                ProductsPage.validateProductDetailsAreVisible(
+                    product.name
+                );
+            });
+            
         })
     })
 })
