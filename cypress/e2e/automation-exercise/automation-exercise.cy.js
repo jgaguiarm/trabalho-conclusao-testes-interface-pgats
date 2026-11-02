@@ -152,5 +152,19 @@ describe('Automation Exercise', () => {
             });
             
         })
+
+        it.only('TC9 - Search Product', () => {
+            const searchTerm = 'Dress';
+
+            HomePage.visitHomePage();
+            HomePage.validateHomePage();
+
+            ProductsPage.clickProductsButton();
+            ProductsPage.validateProductPage();
+            ProductsPage.validateAllProductsAreVisible();
+
+            ProductsPage.searchProduct(searchTerm);
+            ProductsPage.validateSearchedProductsAreVisible(searchTerm);
+        });
     })
 })

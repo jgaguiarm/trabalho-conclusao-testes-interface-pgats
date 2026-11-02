@@ -77,6 +77,37 @@ class ProductsPage {
                 .should('match', /Brand:\s*\S+/);
         });
     }
+
+    
+    searchProduct(searchTerm) {
+        cy.get('#search_product').clear().type(searchTerm);
+        cy.get('#submit_search').click();
+
+        cy.location('search')
+            .should('include', 'search=');
+
+        cy.contains('h2', 'Searched Products')
+            .should('be.visible');
+    }
+
+    validateSearchedProductsAreVisible() {
+        cy.get('.features_items')
+            .should('be.visible');
+
+        cy.get('.features_items .product-image-wrapper')
+            .should('have.length.greaterThan', 0);
+
+        cy.get('.features_items .product-image-wrapper')
+            .each(($product) => {
+                cy.wrap($product).should('be.visible');
+
+                cy.wrap($product)
+                    .find('.productinfo p')
+                    .should('be.visible')
+                    .and('not.be.empty');
+            });
+    }
+   
 }
 
 export default new ProductsPage();
