@@ -6,8 +6,9 @@ module.exports = defineConfig({
   e2e: {
     baseUrl: "https://automationexercise.com/",
     setupNodeEvents(on, config) {
-      // implement node event listeners here
+      // implement node event listeners here,
     },
+    numTestsKeptInMemory: 0,
 
     setupNodeEvents(on, config) {
             require('cypress-mochawesome-reporter/plugin')(on);

@@ -54,6 +54,10 @@ class SignupPage {
         cy.get('[data-qa="continue-button"]').click();
     }
 
+    validateAccountInformationIsVisible() {
+        cy.contains('Enter Account Information').should('be.visible');
+    }
+
 }
 
 export default new SignupPage();

@@ -108,6 +108,53 @@ class ProductsPage {
             });
     }
    
+    
+    addProductToCartByName(productName) {
+        cy.contains('.features_items .product-image-wrapper .productinfo p', productName)
+            .should('be.visible')
+            .closest('.product-image-wrapper')
+            .find('a.add-to-cart')
+            .first()
+            .click({ force: true });
+
+        cy.get('#cartModal').should('be.visible');
+    }
+
+    
+    validateProductAddedToCartModalIsVisible() {
+        cy.get('#cartModal').should('be.visible');
+        cy.get('#cartModal .modal-content').should('be.visible');
+        cy.get('#cartModal .modal-content h4')
+            .should('be.visible')
+            .and('contain.text', 'Added!');
+    }
+
+   clickContinueShoppingButton() {
+        cy.get('#cartModal')
+        .contains('button', 'Continue Shopping')
+        .should('be.visible')
+        .click();
+    }
+
+    clickGoToCartButton() {
+        cy.get('#cartModal')
+        .contains('a', 'View Cart')
+        .should('be.visible')
+        .click();
+    }
+
+    verifyUserIsRedirectedToCartPage() {
+        cy.url().should('include', '/view_cart');
+        cy.contains('h2', 'Shopping Cart').should('be.visible');
+    }
+
+    openCartFromModal() {
+        cy.get('#cartModal')
+        .find('a[href="/view_cart"]')
+        .should('be.visible')
+        .click();
+    }
+
 }
 
 export default new ProductsPage();
