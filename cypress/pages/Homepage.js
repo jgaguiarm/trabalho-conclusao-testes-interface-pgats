@@ -33,6 +33,24 @@ class HomePage {
     logoutUser() {
         cy.get('a[href="/logout"]').click();
     }
+
+    fillSubscriptionEmail(email) {
+        cy.get('#susbscribe_email').type(email);
+    }
+
+    clickSubscribeButton() {
+        cy.get('#subscribe').click();
+    }
+
+    validateSubscriptionSuccessMessageIsVisible() {
+        cy.get('.alert-success')
+            .should('be.visible')
+            .and('contain.text', 'You have been successfully subscribed!');
+    }
+
+    scrollToFooter() {
+        cy.get('footer').scrollIntoView();
+    }
 }
 
 export default new HomePage();

@@ -153,7 +153,7 @@ describe('Automation Exercise', () => {
             
         })
 
-        it.only('TC9 - Search Product', () => {
+        it('TC9 - Search Product', () => {
             const searchTerm = 'Dress';
 
             HomePage.visitHomePage();
@@ -165,6 +165,22 @@ describe('Automation Exercise', () => {
 
             ProductsPage.searchProduct(searchTerm);
             ProductsPage.validateSearchedProductsAreVisible(searchTerm);
+        });
+    })
+
+    describe('Subscription', () => {
+        it('TC10 - Verify Subscription in home page', () => {
+
+            const email = `tc10${Date.now()}@example.com`;
+
+            HomePage.visitHomePage();
+            HomePage.validateHomePage();
+
+            HomePage.scrollToFooter();
+            HomePage.fillSubscriptionEmail(email);
+            HomePage.clickSubscribeButton();
+            HomePage.validateSubscriptionSuccessMessageIsVisible();
+
         });
     })
 })
