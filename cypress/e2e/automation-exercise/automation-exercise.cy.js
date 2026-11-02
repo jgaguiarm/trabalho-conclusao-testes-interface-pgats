@@ -242,5 +242,56 @@ describe('Automation Exercise', () => {
             HomePage.verifyAccountDeletedIsVisible();
             HomePage.clickContinueButton();
         });
+
+        it('TC16 - Place Order: Register before Checkout', function() {
+            const user = {
+                ...this.user,
+                email: `tc16.${faker.string.uuid()}@example.com`
+            };
+
+            HomePage.visitHomePage();
+            HomePage.validateHomePage();
+            HomePage.clickSignupLoginButton();
+
+            LoginPage.validateNewUserSignupIsVisible();
+            LoginPage.fillSignupEmailAndPassword(user.name, user.email);
+            LoginPage.clickSignupButton();
+
+            SignupPage.validateAccountInformationIsVisible();
+            SignupPage.fillSignupForm(user);
+            SignupPage.clickCreateAccountButton();
+            SignupPage.verifyAccountCreatedIsVisible();
+            SignupPage.clickContinueButton();
+
+            HomePage.veryfyLoggedInAsUserIsVisible(user.name);
+
+            ProductsPage.addProductToCartByName('Blue Top');
+            ProductsPage.clickContinueShoppingButton();
+
+            ProductsPage.addProductToCartByName('Men Tshirt');
+            ProductsPage.openCartFromModal();
+
+            CartPage.validateCartPage();
+            CartPage.proceedToCheckout();
+
+            CheckoutPage.validateAddressDetails();
+            CheckoutPage.validateOrderReview();
+            CheckoutPage.enterComment('Please handle the order with care.');
+            CheckoutPage.placeOrder();
+
+            PaymentPage.fillPaymentDetails({
+                nameOnCard: `${user.firstName} ${user.lastName}`,
+                cardNumber: faker.string.numeric(16),
+                cvc: faker.string.numeric(3),
+                expirationMonth: '12',
+                expirationYear: '2028'
+            });
+            PaymentPage.submitPayment();
+            PaymentPage.verifyOrderSuccess();
+
+            HomePage.deleteAccount();
+            HomePage.verifyAccountDeletedIsVisible();
+            HomePage.clickContinueButton();
+        }); 
     })
 })
